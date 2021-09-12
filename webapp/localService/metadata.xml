@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="YSCP_MM_PO_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Header" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="PONumber"/>
+                </Key>
+                <Property Name="PONumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vendor" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CurrencyCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Items" Relationship="YSCP_MM_PO_SRV.HeaderToItemAss" FromRole="FromRole_HeaderToItemAss" ToRole="ToRole_HeaderToItemAss"/>
+            </EntityType>
+            <EntityType Name="Item" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="PONumber"/>
+                    <PropertyRef Name="POItem"/>
+                </Key>
+                <Property Name="PONumber" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="POItem" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ShortText" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Material" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Quantity" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="3" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Unit" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NetPrice" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="2" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PriceUnit" Type="Edm.Decimal" Nullable="false" Precision="5" Scale="0" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="HeaderToItemAss" sap:content-version="1">
+                <End Type="YSCP_MM_PO_SRV.Header" Multiplicity="1" Role="FromRole_HeaderToItemAss"/>
+                <End Type="YSCP_MM_PO_SRV.Item" Multiplicity="*" Role="ToRole_HeaderToItemAss"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_HeaderToItemAss">
+                        <PropertyRef Name="PONumber"/>
+                    </Principal>
+                    <Dependent Role="ToRole_HeaderToItemAss">
+                        <PropertyRef Name="PONumber"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="YSCP_MM_PO_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="HeaderSet" EntityType="YSCP_MM_PO_SRV.Header" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="ItemSet" EntityType="YSCP_MM_PO_SRV.Item" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <AssociationSet Name="HeaderToItemAssSet" Association="YSCP_MM_PO_SRV.HeaderToItemAss" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="HeaderSet" Role="FromRole_HeaderToItemAss"/>
+                    <End EntitySet="ItemSet" Role="ToRole_HeaderToItemAss"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="http://192.168.0.168:50000/sap/opu/odata/sap/YSCP_MM_PO_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://192.168.0.168:50000/sap/opu/odata/sap/YSCP_MM_PO_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

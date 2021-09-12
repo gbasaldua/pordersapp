@@ -1,0 +1,16 @@
+<mvc:View controllerName="com.porders.pordersapp.controller.Details" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+	<App>
+		<pages>
+			<Page title="{i18n>detTitle}" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					<ObjectHeader title="{PONumber}" class="sapUiResponsivePadding--header">
+						<ObjectAttribute text="{PODescription}"/>
+					</ObjectHeader>
+					<List items="{Items}" headerText="Productos">
+						<DisplayListItem label="{ShortText}" value="{Quantity}"/>
+					</List>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

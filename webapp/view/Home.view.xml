@@ -1,0 +1,46 @@
+<mvc:View controllerName="com.porders.pordersapp.controller.Home" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+	<Page id="page" title="{i18n>title}">
+		<content>
+			<Table id="idPordersTable" items="{/HeaderSet}" growing="true" growingThreshold="25">
+				<headerToolbar>
+					<OverflowToolbar>
+						<Title text="{i18n>searchToolbarTitle}"/>
+						<ToolbarSpacer/>
+						<SearchField width="20%" search="onSearch"/>
+						<Button tooltip="Sort" icon="sap-icon://sort" press="onSort"/>
+						<Button tooltip="Group" icon="sap-icon://group-2" press="onGroup"/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column>
+						<Text text="{i18n>columnPONumber}" />
+					</Column>
+					<Column>
+						<Text text="{i18n>columnPODescription}" />
+					</Column>
+					<Column>
+						<Text text="{i18n>columnCompanyCode}" />
+					</Column>
+					<Column>
+						<Text text="{i18n>columnVendor}" />
+					</Column>
+					<Column>
+						<Text text="{i18n>columnNetPrice}" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation" press="onPressItem">
+						<cells>
+							<ObjectIdentifier title="{PONumber}"/>
+							<Text text="{PODescription}"/>
+							<Text text="{CompanyCode}"/>
+							<Text text="{Vendor}"/>
+							<ObjectNumber number="{ parts: [{path: 'NetPrice'}, {path: 'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }" 
+							unit="{CurrencyCode}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</Page>
+</mvc:View>
