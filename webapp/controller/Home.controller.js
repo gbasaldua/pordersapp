@@ -71,6 +71,48 @@ sap.ui.define([
 				oBinding.sort(aSorters);
 			},
 
+			onGroup: function () {
+				// 1. get current view
+				var oView = this.getView();
+
+				// 2. load the fragment file
+				if (!this.byId("groupDialog")) {
+					Fragment.load({
+						id: oView.getId(),
+						name: "com.porders.pordersapp.fragment.GroupDialog",
+						controller: this
+					}).then(function (oDialog) {
+						// 3. Open dialog
+						// connect dialog to the root view of component (model, lifecycle)
+						oView.addDependent(oDialog);
+						oDialog.open();
+					});
+				} else {
+					this.byId("groupDialog").open();
+				}
+
+			},
+
+			onGroupDialogConfirm: function (oEvent) {
+				var oSortItem = oEvent.getParameter("groupItem");
+				var sColumnPath = "PONumber";
+				var bDescending = oEvent.getParameter("groupDescending");
+				var aSorters = [];
+				var bGroupEnabled = false;
+
+				if (oSortItem) {
+					sColumnPath = oSortItem.getKey();
+					bGroupEnabled = true;
+				}
+
+				aSorters.push(new Sorter(sColumnPath, bDescending, bGroupEnabled));
+
+				var oTable = this.byId("idPordersTable");
+				var oBinding = oTable.getBinding("items");
+
+				oBinding.sort(aSorters);
+			},
+
 			onPressItem: function (oEvent) {
 				var oRouter = UIComponent.getRouterFor(this);
 				var oItem = oEvent.getSource();
