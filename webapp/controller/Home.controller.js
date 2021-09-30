@@ -4,15 +4,19 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/core/Fragment",
-	"sap/ui/model/Sorter"
+	"sap/ui/model/Sorter",
+	"com/porders/pordersapp/model/formatter"
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	function (Controller, UIComponent, Filter, FilterOperator, Fragment, Sorter) {
+	function (Controller, UIComponent, Filter, FilterOperator, Fragment, Sorter, formatter) {
 		"use strict";
 
 		return Controller.extend("com.porders.pordersapp.controller.Home", {
+
+			formatter: formatter,
+
 			onInit: function () {
 
 			},

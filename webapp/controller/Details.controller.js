@@ -1,15 +1,19 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
-	"sap/ui/core/UIComponent"
+	"sap/ui/core/UIComponent",
+	"com/porders/pordersapp/model/formatter"
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	function (Controller, History, UIComponent) {
+	function (Controller, History, UIComponent, formatter) {
 		"use strict";
 
 		return Controller.extend("com.porders.pordersapp.controller.Details", {
+
+			formatter: formatter,
+
 			onInit: function () {
 				var oRouter = UIComponent.getRouterFor(this);
 

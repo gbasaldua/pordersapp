@@ -3,9 +3,22 @@
 		<pages>
 			<Page title="{i18n>detTitle}" showNavButton="true" navButtonPress="onNavBack">
 				<content>
-					<ObjectHeader title="{PONumber}" class="sapUiResponsivePadding--header">
+					<ObjectHeader title="{PONumber}"
+									number="{ parts:[{path: 'NetPrice'}, {path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
+									numberUnit="{CurrencyCode}" class="sapUiResponsivePadding--header">
+						<statuses>
+							<ObjectStatus text="{RelIndDescription}" state="{ path: 'ReleaseIndicator', formatter: '.formatter.formatStatus'}"/>
+						</statuses>
+						<ObjectAttribute text="{path: 'CreatedAt', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' }}"/>
 						<ObjectAttribute text="{PODescription}"/>
 					</ObjectHeader>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button text="Accept" press="onPress"/>
+						<Button type="Reject" text="Reject" press="onPress" />
+						<Button icon="sap-icon://action" type="Transparent" press="onPress" ariaLabelledBy="actionButtonLabel"/>
+						<ToolbarSpacer/>
+					</Toolbar>
 					<List items="{Items}" headerText="Productos">
 						<DisplayListItem label="{ShortText}" value="{Quantity}"/>
 					</List>

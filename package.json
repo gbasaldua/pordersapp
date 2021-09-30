@@ -10,7 +10,7 @@
 	],
 	"main": "webapp/index.html",
 	"scripts": {
-		"start": "fiori run --open 'index.html?sap-client=001'",
+		"start": "fiori run --open 'index.html?sap-client=001' BROWSER=firefox",
 		"start-local": "fiori run --config ./ui5-local.yaml --open 'index.html?sap-client=001'",
 		"start-noflp": "fiori run --open 'index.html?sap-client=001'",
 		"build": "ui5 build -a --clean-dest --include-task=generateManifestBundle generateCachebusterInfo",
