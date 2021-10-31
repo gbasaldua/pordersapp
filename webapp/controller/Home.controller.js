@@ -124,6 +124,17 @@ sap.ui.define([
 				oRouter.navTo("Detail", {
 					PONumber: oItem.getBindingContext().getObject().PONumber
 				});
+			},
+
+			onCopy: function (oEvent) {
+				var oRouter = UIComponent.getRouterFor(this);
+				var oItem = this.getView().byId("idPordersTable").getSelectedItem();
+
+				oRouter.navTo("New", {
+					PODescription: oItem.getBindingContext().getObject().PODescription,
+					CompanyCode: oItem.getBindingContext().getObject().CompanyCode,
+					Vendor: oItem.getBindingContext().getObject().Vendor
+				});
 			}
 
 		});

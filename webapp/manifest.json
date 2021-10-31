@@ -101,6 +101,11 @@
           "name": "Detail",
           "pattern": "details/{PONumber}",
           "target": ["TargetDetails"]
+        },
+        {
+          "name": "New",
+          "pattern": "details/#NEW/{PODescription}-{CompanyCode}-{Vendor}",
+          "target": ["TargetNew"]
         }
       ],
       "targets": {
@@ -111,6 +116,10 @@
         "TargetDetails": {
           "viewType": "XML",
           "viewName": "Details"
+        },
+        "TargetNew": {
+          "viewType": "XML",
+          "viewName": "New"
         },
         "App": {
           "viewType": "XML",

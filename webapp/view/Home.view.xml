@@ -7,11 +7,15 @@
 					path: '/HeaderSet',
 					parameters: {expand: 'UserDetail'}
 				}"
-				growing="true" growingThreshold="25"
+				growing="true"
+				growingThreshold="25"
+				mode="SingleSelect"
 			>
 				<headerToolbar>
 					<OverflowToolbar>
 						<Title text="{i18n>searchToolbarTitle}"/>
+						<ToolbarSpacer/>
+						<Button text="Copy" press="onCopy"/>
 						<ToolbarSpacer/>
 						<SearchField width="20%" search="onSearch"/>
 						<Button tooltip="Sort" icon="sap-icon://sort" press="onSort"/>
