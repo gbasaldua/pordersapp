@@ -135,6 +135,12 @@ sap.ui.define([
 					CompanyCode: oItem.getBindingContext().getObject().CompanyCode,
 					Vendor: oItem.getBindingContext().getObject().Vendor
 				});
+			},
+
+			onRefresh: function() {
+				var oTable = this.getView().byId("idPordersTable");
+				oTable.getModel().refresh(true);
+				console.log(oTable);
 			}
 
 		});

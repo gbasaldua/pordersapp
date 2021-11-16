@@ -16,6 +16,7 @@
 						<Title text="{i18n>searchToolbarTitle}"/>
 						<ToolbarSpacer/>
 						<Button text="Copy" press="onCopy"/>
+						<Button text="Refresh" press="onRefresh"/>
 						<ToolbarSpacer/>
 						<SearchField width="20%" search="onSearch"/>
 						<Button tooltip="Sort" icon="sap-icon://sort" press="onSort"/>
