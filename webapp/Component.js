@@ -1,7 +1,8 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"com/porders/pordersapp/model/models"
+	"com/porders/pordersapp/model/models",
+	"com/porders/pordersapp/libs/jszip.min"
 ], function (UIComponent, Device, models) {
 	"use strict";
 

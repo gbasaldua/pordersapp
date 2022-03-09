@@ -18,7 +18,7 @@ sap.ui.define([
 			formatter: formatter,
 
 			onInit: function () {
-
+				jQuery.sap.require("sap.ui.core.util.File"); //se agrega para poder guardar archivos al generar PDF, CSV, etc
 			},
 
 			onSearch: function (oEvent) {
@@ -137,10 +137,82 @@ sap.ui.define([
 				});
 			},
 
-			onRefresh: function() {
+			onRefresh: function () {
 				var oTable = this.getView().byId("idPordersTable");
 				oTable.getModel().refresh(true);
 				console.log(oTable);
+			},
+
+			onDownload: function (oEvent) {
+				var oItems = this.getView().byId("idPordersTable").getSelectedItems();
+				var oModelPDF = new sap.ui.model.odata.ODataModel(
+					this.getOwnerComponent().getManifestObject().getEntry("/sap.app").dataSources.mainService.uri
+				);
+
+				oItems.forEach(function (oItem) {
+					var itemData = oItem.getBindingContext().getObject();
+					var poNumber = itemData.PONumber;
+					var uriPDFSet = "HeaderSet('" + poNumber + "')/$value";
+
+					oModelPDF.read(uriPDFSet, {
+						success: function (oData, response) {
+							var file = response.requestUri;
+							window.open(file);
+						},
+						error: function () {
+							alert("Download Error");
+						}
+					});
+				});
+			},
+
+			onDownloadZip: function () {
+				var oItems = this.getView().byId("idPordersTable").getSelectedItems();
+				var zipFile = new JSZip();
+				var oModelPDF = new sap.ui.model.odata.ODataModel(
+					this.getOwnerComponent().getManifestObject().getEntry("/sap.app").dataSources.mainService.uri
+				);
+
+				oItems.forEach(function (oItem) {
+					var itemData = oItem.getBindingContext().getObject();
+					var poNumber = itemData.PONumber;
+					var uriPDFSet = "PdfSet('" + poNumber + "')";
+
+					oModelPDF.read(uriPDFSet, {
+						success: function (oData, response) {
+							const pdfHex = response.data.File;
+							let binary = new Array();
+
+							for (var j=0; j<pdfHex.length/2; j++) {
+								var h = pdfHex.substr(j*2, 2);
+								binary[j] = parseInt(h,16);        
+							}
+							
+							const bin = new Uint8Array(binary);
+
+							zipFile.file(response.data.FileName, bin);
+
+							zipFile.generateAsync({
+								type: "blob"
+							}).then(function (content) {
+								sap.ui.core.util.File.save(content, "download " + new Date().getTime(), "zip");
+							});
+						},
+						error: function () {
+							alert("ZIP Download Error");
+						}
+					});
+				});
+			},
+
+			hextob64: function (str) {
+				var targetStr = str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "");
+				targetStr = targetStr.split(" ");
+				targetStr = new Uint8Array(targetStr).reduce(function (data, byte) {
+					return data + String.fromCharCode(byte);
+				}, '');
+				targetStr = btoa(targetStr);
+				return targetStr;
 			}
 
 		});
