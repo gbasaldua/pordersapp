@@ -168,6 +168,7 @@ sap.ui.define([
 
 			onDownloadZip: function () {
 				var oItems = this.getView().byId("idPordersTable").getSelectedItems();
+				var i = 1;
 				var zipFile = new JSZip();
 				var oModelPDF = new sap.ui.model.odata.ODataModel(
 					this.getOwnerComponent().getManifestObject().getEntry("/sap.app").dataSources.mainService.uri
@@ -183,23 +184,33 @@ sap.ui.define([
 							const pdfHex = response.data.File;
 							let binary = new Array();
 
-							for (var j=0; j<pdfHex.length/2; j++) {
-								var h = pdfHex.substr(j*2, 2);
-								binary[j] = parseInt(h,16);        
+							for (var j = 0; j < pdfHex.length / 2; j++) {
+								var h = pdfHex.substr(j * 2, 2);
+								binary[j] = parseInt(h, 16);
 							}
-							
+
 							const bin = new Uint8Array(binary);
 
 							zipFile.file(response.data.FileName, bin);
 
-							zipFile.generateAsync({
-								type: "blob"
-							}).then(function (content) {
-								sap.ui.core.util.File.save(content, "download " + new Date().getTime(), "zip");
-							});
+							if (i++ === oItems.length && Object.values(zipFile.files).length > 0) {
+								zipFile.generateAsync({
+									type: "blob"
+								}).then(function (content) {
+									sap.ui.core.util.File.save(content, "download " + new Date().getTime(), "zip");
+								});
+							}
 						},
 						error: function () {
 							alert("ZIP Download Error");
+
+							if (i++ === oItems.length && Object.values(zipFile.files).length > 0) {
+								zipFile.generateAsync({
+									type: "blob"
+								}).then(function (content) {
+									sap.ui.core.util.File.save(content, "download " + new Date().getTime(), "zip");
+								});
+							}
 						}
 					});
 				});
