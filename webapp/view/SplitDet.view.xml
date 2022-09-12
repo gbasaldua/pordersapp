@@ -1,0 +1,24 @@
+<mvc:View controllerName="com.porders.pordersapp.controller.SplitDet" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:f="sap.f">
+    <Page id="split" title="{i18n>title}">
+        <content>
+            <ObjectHeader title="Split de Detalles">
+                <ObjectAttribute text="Detalles" />
+            </ObjectHeader>
+            <SplitContainer id="SplitContDemo" initialDetail="detail" initialMaster="master">
+                <detailPages>
+                    <Page id="detail" title="Detail 1" backgroundDesign="Solid" showNavButton="{= !${device>/system/desktop} }" navButtonPress=".onPressDetailBack">
+                        <Label text="Detail page 1" class="sapUiTinyMarginEnd" />
+                        <Button text="Go to Detail page 2" press=".onPressNavToDetail" />
+                    </Page>
+                </detailPages>
+                <masterPages>
+                    <Page id="master" title="Master 1" backgroundDesign="List">
+                        <List>
+                            <StandardListItem title="To Master2" type="Navigation" press=".onPressGoToMaster" />
+                        </List>
+                    </Page>
+                </masterPages>
+            </SplitContainer>
+        </content>
+    </Page>
+</mvc:View>

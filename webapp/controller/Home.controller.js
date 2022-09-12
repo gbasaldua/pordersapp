@@ -126,6 +126,12 @@ sap.ui.define([
 				});
 			},
 
+			onSplitDet: function () {
+				var oRouter = UIComponent.getRouterFor(this);
+				
+				oRouter.navTo("SplitDet", {});
+			},
+
 			onCopy: function (oEvent) {
 				var oRouter = UIComponent.getRouterFor(this);
 				var oItem = this.getView().byId("idPordersTable").getSelectedItem();

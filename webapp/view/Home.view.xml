@@ -9,7 +9,6 @@
 				}"
 				growing="true"
 				growingThreshold="25"
-				mode="MultiSelect"
 			>
 				<headerToolbar>
 					<OverflowToolbar>
@@ -19,6 +18,7 @@
 						<Button text="Refresh" press="onRefresh"/>
 						<Button text="Download" press="onDownload"/>
 						<Button text="Download ZIP" press="onDownloadZip"/>
+						<Button text="Detalle" press="onSplitDet"/>
 						<ToolbarSpacer/>
 						<SearchField width="20%" search="onSearch"/>
 						<Button tooltip="Sort" icon="sap-icon://sort" press="onSort"/>
