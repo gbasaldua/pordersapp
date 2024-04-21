@@ -13,7 +13,7 @@
     "ach": "ach",
     "dataSources": {
       "mainService": {
-        "uri": "/sap/opu/odata/sap/YSCP_MM_PO_SRV",
+        "uri": "/sap/opu/odata/sap/YBTP_MM_PO_SRV",
         "type": "OData",
         "settings": {
           "odataVersion": "2.0",
